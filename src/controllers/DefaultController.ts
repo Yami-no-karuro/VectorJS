@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { AbstractController } from './AbstractController';
+import { AbstractController } from '../modules/Controller/AbstractController';
 
 export class DefaultController extends AbstractController {
 

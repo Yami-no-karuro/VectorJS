@@ -4,3 +4,7 @@ node_modules
 # dist
 /dist/*
 !/dist/.gitkeep
+
+# transients
+/var/transients/*
+!/var/transients/.gitkeep
