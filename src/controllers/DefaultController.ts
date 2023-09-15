@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { AbstractController } from '../modules/Controller/AbstractController';
+import { Controller } from '../modules/Controller/Controller';
 
-export class DefaultController extends AbstractController {
+export class DefaultController extends Controller {
 
     public static router = new DefaultController()
         .router;
@@ -17,7 +17,7 @@ export class DefaultController extends AbstractController {
 
     /**
      * @package VectorJS
-     * UserController.defaultAction()
+     * DefaultController.defaultAction()
      * @param req: Request 
      * @param res: Response
      * @returns void

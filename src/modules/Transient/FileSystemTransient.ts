@@ -1,8 +1,8 @@
 import fs from 'fs';
-import AbstractTransient from './AbstractTransient';
+import Transient from './Transient';
 import TransientData from './TransientData';
 
-export default class FileSystemTransient extends AbstractTransient {
+export default class FileSystemTransient extends Transient {
 
   protected content: TransientData | undefined;
 

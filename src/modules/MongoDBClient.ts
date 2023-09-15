@@ -1,5 +1,5 @@
 import { MongoClient, Db, Collection } from 'mongodb';
-import ApplicationLogger from './ApplicationLogger';
+import FileSystemLogger from './ApplicationLogger/FileSystemLogger';
 
 export default class MongoDBClient {
 
@@ -28,7 +28,21 @@ export default class MongoDBClient {
       await this.client?.connect();
       this.db = this.client?.db(name);
     } catch (error) {
-      ApplicationLogger.write(`Unable to connect to database: "${name}"`);
+      await FileSystemLogger.write(`Unable to connect to database: "${name}"`);
+    }
+  }
+
+  /**
+   * @package VectorJS
+   * MongoDBClient.disconnect()
+   * @returns Promise<void>
+   */
+  public async disconnect(): Promise<void> {
+    try {
+      await this.client?.close();
+      this.db = undefined;
+    } catch (error) {
+      await FileSystemLogger.write('Unable to close current database connection;');
     }
   }
 
@@ -36,14 +50,14 @@ export default class MongoDBClient {
    * @package VectorJS
    * MongoDBClient.getCollection()
    * @param name: string
-   * @returns Collection<Document> 
+   * @returns Promise<Collection<Document> | undefined>   
    */
-  public getCollection(name: string): Collection<Document> | undefined {
+  public async getCollection(name: string): Promise<Collection<Document> | undefined> {
     try {
       const collection: Collection<Document> | undefined = this.db?.collection(name);
       return collection
     } catch (error) {
-      ApplicationLogger.write(`Unable to retrive or create collection: "${name}"`);
+      await FileSystemLogger.write(`Unable to retrive or create collection: "${name}"`);
     }
   }
 
