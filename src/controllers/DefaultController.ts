@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { Controller } from '../modules/Controller/Controller';
+import { AbstractController } from '../modules/Controller/AbstractController';
 
-export class DefaultController extends Controller {
+export class DefaultController extends AbstractController {
 
     public static router = new DefaultController()
         .router;

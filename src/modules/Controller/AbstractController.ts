@@ -1,12 +1,12 @@
 import express, { Router } from 'express';
 
-export abstract class Controller {
+export abstract class AbstractController {
 
     protected router: Router;
 
     /**
      * @package VectorJS
-     * Controller.constructor()
+     * AbstractController.constructor()
      * @returns void
      */
     constructor() {
@@ -16,7 +16,7 @@ export abstract class Controller {
 
     /**
      * @package VectorJS
-     * Controller.routes()
+     * AbstractController.routes()
      * @returns void
      */
     protected abstract routes(): void;
