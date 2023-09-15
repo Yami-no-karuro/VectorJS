@@ -5,6 +5,10 @@ node_modules
 /dist/*
 !/dist/.gitkeep
 
+# logs
+/var/logs/*
+!/var/logs/.gitkeep
+
 # transients
 /var/transients/*
 !/var/transients/.gitkeep

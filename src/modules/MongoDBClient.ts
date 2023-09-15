@@ -1,4 +1,5 @@
 import { MongoClient, Db, Collection } from 'mongodb';
+import ApplicationLogger from './ApplicationLogger';
 
 export default class MongoDBClient {
 
@@ -19,21 +20,22 @@ export default class MongoDBClient {
   /**
    * @package VectorJS
    * MongoDBClient.connect()
+   * @param name: string
    * @returns Promise<void>
    */
-  public async connect(): Promise<void> {
+  public async connect(name: string): Promise<void> {
     try {
       await this.client?.connect();
-      this.db = this.client?.db('vector');
+      this.db = this.client?.db(name);
     } catch (error) {
-      throw new Error("Unable to connect to database.");
-      // ...
+      ApplicationLogger.write(`Unable to connect to database: "${name}"`);
     }
   }
 
   /**
    * @package VectorJS
    * MongoDBClient.getCollection()
+   * @param name: string
    * @returns Collection<Document> 
    */
   public getCollection(name: string): Collection<Document> | undefined {
@@ -41,8 +43,7 @@ export default class MongoDBClient {
       const collection: Collection<Document> | undefined = this.db?.collection(name);
       return collection
     } catch (error) {
-      throw new Error("Unable to create or retrive collection.");
-      // ...
+      ApplicationLogger.write(`Unable to retrive or create collection: "${name}"`);
     }
   }
 
