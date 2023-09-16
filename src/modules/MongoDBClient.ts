@@ -9,7 +9,6 @@ export default class MongoDBClient {
   /**
    * @package VectorJS
    * MongoDBClient.constructor()
-   * @returns void
    */
   public constructor() {
     if (undefined !== process.env.MONGO_URL) {
