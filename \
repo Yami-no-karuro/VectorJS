@@ -1,5 +1,0 @@
-export default interface LoggerInterface {
-
-  public static abstract write(): Promise<void>
-
-}
