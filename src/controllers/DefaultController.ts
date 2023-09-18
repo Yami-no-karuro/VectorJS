@@ -22,7 +22,7 @@ export class DefaultController extends AbstractController {
      * @param res: Response
      * @returns void
      */
-    public defaultAction(req: Request, res: Response): void {
+    public defaultAction(_: Request, res: Response): void {
         res.render('default', {
             title: "VectorJS",
             description: "A simple HttpFoundation framework for TypeScript."

@@ -19,19 +19,6 @@ export default class HTTPRequest {
 
   /**
    * @package VectorJS
-   * HttpRequest.appendHeader()
-   * @param headers: string
-   * @param value: string
-   * @return void
-   */
-  public appendHeader(header: string, value: string): void {
-    if (undefined !== this.headers) {
-      this.headers.set(header, value);
-    }
-  }
-
-  /**
-   * @package VectorJS
    * HttpRequest.send()
    * @return Promise<Object | undefied>
    */

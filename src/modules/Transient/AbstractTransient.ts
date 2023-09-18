@@ -1,12 +1,12 @@
 import Crypt from "../Crypt";
 
-export default class Transient {
+export default abstract class AbstractTransient {
 
   protected name: string;
 
   /**
    * @package VectorJS
-   * Transient.constructor()
+   * AbstractTransient.constructor()
    * @returns void
    */
   public constructor(name: string) {

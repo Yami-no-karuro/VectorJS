@@ -1,5 +1,7 @@
 export default class Crypt {
 
+  protected HEX_CHARS: string = '0123456789abcdef';
+
   /**
    * @package VectorJS
    * Crypt.MD5()
@@ -7,7 +9,7 @@ export default class Crypt {
    * @return string
    */
   public static MD5(input: string): string {
-    const hexChars: string = '0123456789abcdef';
+    const HEX_CHARS: string = '0123456789abcdef';
 
     const inputBytes: Uint8Array = new TextEncoder().encode(input);
     const hashBytes: Uint8Array = new Uint8Array(16);
@@ -24,7 +26,7 @@ export default class Crypt {
     let hashResult: string = '';
     for (let i: number = 0; i < hashBytes.length; i++) {
       const byte: number = hashBytes[i];
-      hashResult += hexChars.charAt(byte >> 4) + hexChars.charAt(byte & 0x0f);
+      hashResult += HEX_CHARS.charAt(byte >> 4) + HEX_CHARS.charAt(byte & 0x0f);
     }
 
     return hashResult;

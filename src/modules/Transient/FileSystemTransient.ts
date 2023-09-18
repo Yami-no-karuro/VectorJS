@@ -1,8 +1,9 @@
 import fs from 'fs';
-import Transient from './Transient';
+import AbstractTransient from './AbstractTransient';
 import TransientData from './TransientData';
+import FileSystemLogger from '../ApplicationLogger/FileSystemLogger';
 
-export default class FileSystemTransient extends Transient {
+export default class FileSystemTransient extends AbstractTransient {
 
   protected content: TransientData | undefined;
 
@@ -17,14 +18,30 @@ export default class FileSystemTransient extends Transient {
 
   /**
    * @package VectorJS
-   * FileSystemTransient.isValid()
+   * FileSystemTransient.isValidSync()
    * @returns boolean 
    */
-  public isValid(): boolean {
+  public isValidSync(): boolean {
+    this.getContentSync();
     if (undefined !== this.content) {
       const date: Date = new Date();
-      if (this.content.ttl === 0 ||
-        (date.getTime() - this.content.createdAt) < this.content.ttl) {
+      if (this.content.ttl === 0 || (date.getTime() - this.content.createdAt) < this.content.ttl) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * @package VectorJS
+   * FileSystemTransient.isValid()
+   * @returns Promise<boolean> 
+   */
+  public async isValid(): Promise<boolean> {
+    await this.getContent();
+    if (undefined !== this.content) {
+      const date: Date = new Date();
+      if (this.content.ttl === 0 || (date.getTime() - this.content.createdAt) < this.content.ttl) {
         return true;
       }
     }
@@ -54,14 +71,16 @@ export default class FileSystemTransient extends Transient {
     return new Promise(async (resolve, _) => {
       let content: TransientData | undefined = this.content;
       if (undefined === content) {
-        fs.readFile('/app/var/transients/' + this.name, (error, content) => {
-          if (!error) {
-            this.content = JSON.parse(content.toString());
-            resolve(this.content?.content);
+        fs.readFile('/app/var/transients/' + this.name, async (error, content) => {
+          if (error) {
+            await FileSystemLogger.write(`Core error: ${error}`);
+            resolve(undefined);
           }
-          resolve(undefined);
+          this.content = JSON.parse(content.toString());
+          resolve(this.content?.content);
         });
       }
+      return content?.content;
     });
   }
 
@@ -75,13 +94,13 @@ export default class FileSystemTransient extends Transient {
   public setContentSync(content: Object, ttl: number): void {
     const date: Date = new Date();
     const createdAt: number = date.getTime();
-    const data: TransientData = {
-      createdAt: createdAt,
-      ttl: ttl,
-      content: content
-    }
     fs.writeFileSync('/app/var/transients/' + this.name,
-      JSON.stringify(data), 'utf8'
+      JSON.stringify({
+        name: this.name,
+        createdAt: createdAt,
+        ttl: ttl,
+        content: content
+      }), 'utf8'
     );
   }
 
@@ -96,12 +115,15 @@ export default class FileSystemTransient extends Transient {
     return new Promise((resolve, _) => {
       const date: Date = new Date();
       const createdAt: number = date.getTime();
-      const data: TransientData = {
+      fs.writeFile('/app/var/transients/' + this.name, JSON.stringify({
+        name: this.name,
         createdAt: createdAt,
         ttl: ttl,
         content: content
-      }
-      fs.writeFile('/app/var/transients/' + this.name, JSON.stringify(data), (_) => {
+      }), async (error) => {
+        if (error) {
+          await FileSystemLogger.write(`Core error: ${error}`);
+        }
         resolve();
       });
     });
