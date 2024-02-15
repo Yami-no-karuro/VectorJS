@@ -59,7 +59,7 @@ export default class MongoDBClient
   {
     try {
       const collection: Collection<Document> | undefined = this.db?.collection(name);
-      return collection
+      return collection;
     } catch (error) {
       await FileSystemLogger.write(`Unable to retrive or create collection: "${name}"`);
     }
