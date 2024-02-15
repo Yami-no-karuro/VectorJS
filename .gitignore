@@ -9,6 +9,6 @@ node_modules
 /var/logs/*
 !/var/logs/.gitkeep
 
-# transients
-/var/transients/*
-!/var/transients/.gitkeep
+# cache
+/var/cache/*
+!/var/cache/.gitkeep

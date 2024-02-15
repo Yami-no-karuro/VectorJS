@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { AbstractController } from '../modules/Controller/AbstractController';
 
-export class DefaultController extends AbstractController {
+export class DefaultController extends AbstractController 
+{
 
     public static router = new DefaultController()
         .router;
@@ -22,10 +23,11 @@ export class DefaultController extends AbstractController {
      * @param res: Response
      * @returns void
      */
-    public defaultAction(_: Request, res: Response): void {
+    public defaultAction(_: Request, res: Response): void 
+    {
         res.render('default', {
-            title: "VectorJS",
-            description: "A simple HttpFoundation framework for TypeScript."
+            title: 'VectorJS',
+            description: 'A simple HttpFoundation framework for TypeScript.'
         });
     }
 

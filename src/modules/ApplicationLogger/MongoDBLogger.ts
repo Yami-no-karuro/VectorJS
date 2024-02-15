@@ -2,7 +2,8 @@ import MongoDBClient from '../MongoDBClient';
 import { Collection } from 'mongodb';
 import FileSystemLogger from './FileSystemLogger';
 
-export default class MongoDBLogger {
+export default class MongoDBLogger 
+{
 
   protected client: MongoDBClient | undefined;
 
@@ -20,7 +21,8 @@ export default class MongoDBLogger {
    * @param message: string
    * @returns Promise<void>
    */
-  public async write(message: string): Promise<void> {
+  public async write(message: string): Promise<void> 
+  {
     await this.client?.connect('vector');
     const collection: Collection<Document> | undefined = await this.client?.getCollection('logs');
     const date: Date = new Date();

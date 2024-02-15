@@ -1,6 +1,7 @@
 import express, { Router } from 'express';
 
-export abstract class AbstractController {
+export abstract class AbstractController 
+{
 
     protected router: Router;
 
@@ -9,7 +10,8 @@ export abstract class AbstractController {
      * AbstractController.constructor()
      * @returns void
      */
-    constructor() {
+    constructor() 
+    {
         this.router = express.Router();
         this.routes();
     }
