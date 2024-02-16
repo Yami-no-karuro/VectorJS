@@ -23,7 +23,7 @@ export class DefaultController extends AbstractController
      * @param res: Response
      * @returns void
      */
-    public defaultAction(_: Request, res: Response): void 
+    public async defaultAction(_: Request, res: Response): Promise<void> 
     {
         res.render('default', {
             title: 'VectorJS',

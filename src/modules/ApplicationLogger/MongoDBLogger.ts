@@ -26,7 +26,9 @@ export default class MongoDBLogger
     await this.client?.connect('vector');
     const collection: Collection<Document> | undefined = await this.client?.getCollection('logs');
     const date: Date = new Date();
-    const today: string = date.getFullYear() + '/' + date.getMonth() + '/' + date.getDay() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+    const today: string = date.getFullYear() + '/' + date.getMonth() + '/' + 
+      date.getDay() + ' ' + date.getHours() + ':' + 
+      date.getMinutes() + ':' + date.getSeconds();
     try {
       await collection?.insertOne({
         date: today,
